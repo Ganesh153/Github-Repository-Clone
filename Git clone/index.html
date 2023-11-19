@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>GitHub Repository Clone</title>
+</head>
+<body>
+    <header>
+        <h1>GitHub Repository Clone</h1>
+        <div id="user-actions">
+            <div id="user-info" style="display: none;">
+                <span id="username-display"></span>
+                <button id="logout-btn" onclick="logout()">Logout</button>
+            </div>
+            <div id="auth-form" style="display: none;">
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <button id="login-btn" onclick="login()">Login</button>
+                <button id="signup-btn" onclick="signup()">Signup</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="repo-filters" style="display: none;">
+            <button onclick="sortByPopularity()">Sort by Popularity</button>
+            <button onclick="sortByRecentActivity()">Sort by Recent Activity</button>
+            <label for="language-filter">Filter by Language:</label>
+            <select id="language-filter" onchange="filterByLanguage(this.value)">
+                <option value="">All Languages</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="C++">C++</option>
+                <option value="Ruby">Ruby</option>
+                <option value="C">C</option>
+                <!-- Add more language options as needed -->
+            </select>
+            <button onclick="showStarredRepos()">Show Starred Repos</button>
+        </div>
+        <div id="repo-list">
+            <!-- Repositories will be displayed here -->
+        </div>
+    </main>
+
+    <script src="scripts.js"></script> <!-- Include your JavaScript file -->
+    <script>
+        // Sample data for repositories
+        let repositories = [
+            { name: 'Repo 1', language: 'JavaScript', stars: 100, lastActivity: '2023-05-01' },
+            { name: 'Repo 2', language: 'Python', stars: 50, lastActivity: '2023-11-16' },
+            { name: 'Repo 3', language: 'Java', stars: 80, lastActivity: '2023-03-01' },
+            { name: 'Repo 4', language: 'C++', stars: 120, lastActivity: '2020-11-11' },
+            { name: 'Repo 5', language: 'Ruby', stars: 70, lastActivity: '2021-05-01' },
+            { name: 'Repo 6', language: 'C', stars:70, lastActivity: '2022-06-01'},
+            // Add more repository data as needed
+        ];
+
+        // Function to display repositories
+        function displayRepositories(repoData) {
+            const repoList = document.getElementById('repo-list');
+            repoList.innerHTML = '';
+
+            repoData.forEach(repo => {
+                const repoCard = document.createElement('div');
+                repoCard.classList.add('repo-card');
+                repoCard.innerHTML = `
+                    <h3>${repo.name}</h3>
+                    <p>Language: ${repo.language}</p>
+                    <p>Stars: ${repo.stars}</p>
+                    <p>Last Activity: ${repo.lastActivity}</p>
+                    <button onclick="starRepository('${repo.name}')">Star</button>
+                `;
+                repoList.appendChild(repoCard);
+            });
+        }
+
+        // Call the function to display repositories with the sample data
+        displayRepositories(repositories);
+    </script>
+</body>
+</html>
